@@ -32,7 +32,8 @@ trait OAuth2FactoryTrait
 
         $builder
             ->scalarNode('client_id')->end()
-            ->scalarNode('client_secret')->end();
+            ->scalarNode('client_secret')->end()
+            ->scalarNode('tenant_id')->end();
     }
 
     /**

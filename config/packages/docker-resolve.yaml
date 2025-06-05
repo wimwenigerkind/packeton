@@ -27,6 +27,7 @@ resolve:
                     entra_id:
                         client_id: '%env(OAUTH_ENTRA_ID_CLIENT_ID)%'
                         client_secret: '%env(OAUTH_ENTRA_ID_CLIENT_SECRET)%'
+                        tenant_id: '%env(OAUTH_ENTRA_ID_TENANT_ID)%'
 
     github_integration:
         expression: 'env("OAUTH_GITHUB_CLIENT_ID")'

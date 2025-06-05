@@ -30,7 +30,6 @@ class EntraIdOAuth2Login implements LoginInterface
         protected RouterInterface $router,
         protected OAuth2State $state,
     ) {
-        $this->config['tenant_id'] = $_ENV['OAUTH_ENTRA_ID_TENANT_ID'] ?? null;
         $this->name = $config['name'];
         if (empty($this->config['default_roles'])) {
             $this->config['default_roles'] = ['ROLE_MAINTAINER', 'ROLE_SSO_ENTRA_ID'];
