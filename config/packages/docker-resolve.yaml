@@ -15,6 +15,19 @@ resolve:
                         client_id: '%env(OAUTH_GOOGLE_CLIENT_ID)%'
                         client_secret: '%env(OAUTH_GOOGLE_CLIENT_SECRET)%'
 
+    entra_id_integration:
+        expression: 'env("OAUTH_ENTRA_ID_CLIENT_ID")'
+        parameters:
+            env(OAUTH_ENTRA_ID_ALLOW_REGISTRATION): false
+        packeton:
+            integrations:
+                entra_id:
+                    allow_login: true # this integration makes no sense with false
+                    allow_register: '%env(bool:OAUTH_ENTRA_ID_ALLOW_REGISTRATION)%'
+                    entra_id:
+                        client_id: '%env(OAUTH_ENTRA_ID_CLIENT_ID)%'
+                        client_secret: '%env(OAUTH_ENTRA_ID_CLIENT_SECRET)%'
+
     github_integration:
         expression: 'env("OAUTH_GITHUB_CLIENT_ID")'
         parameters:

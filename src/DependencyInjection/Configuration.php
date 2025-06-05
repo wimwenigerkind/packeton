@@ -335,6 +335,10 @@ class Configuration implements ConfigurationInterface
             'google' => [
                 'svg_logo' => 'svg/google.html.twig',
                 'login_title' => 'Login with Google',
+            ],
+            'entra_id' => [
+                'svg_logo' => 'svg/entra_id.html.twig',
+                'login_title' => 'Login with Entra ID',
             ]
         ];
     }
