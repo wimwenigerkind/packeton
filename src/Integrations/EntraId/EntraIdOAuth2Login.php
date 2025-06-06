@@ -30,6 +30,7 @@ class EntraIdOAuth2Login implements LoginInterface
         protected RouterInterface $router,
         protected OAuth2State $state,
     ) {
+        $this->config["tenant_id"] = $this->config['tenant_id'] ?? 'common';
         $this->name = $config['name'];
         if (empty($this->config['default_roles'])) {
             $this->config['default_roles'] = ['ROLE_MAINTAINER', 'ROLE_SSO_ENTRA_ID'];
@@ -73,18 +74,17 @@ class EntraIdOAuth2Login implements LoginInterface
         $accessToken ??= $request instanceof Request ? $this->getAccessToken($request) : $request;
 
         $response = $this->httpClient->request('GET',
-            'https://graph.microsoft.com/v1.0/me',
+            'https://graph.microsoft.com/oidc/userinfo',
             $this->getAuthorizationHeaders($accessToken)
         );
 
         $data = $response->toArray();
 
-        // Prüfe, ob E-Mail vorhanden ist
-        if (empty($data['mail']) && empty($data['userPrincipalName'])) {
-            throw new BadRequestHttpException('No email or userPrincipalName returned from Microsoft Graph.');
+        if (empty($data['email'])) {
+            throw new BadRequestHttpException('No email returned from Microsoft Graph oidc userinfo.');
         }
 
-        $email = $data['mail'] ?? $data['userPrincipalName'];
+        $email = $data['email'];
 
         return [
             'user_name' => explode('@', $email)[0],
