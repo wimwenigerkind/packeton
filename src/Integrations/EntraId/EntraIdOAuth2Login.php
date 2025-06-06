@@ -46,8 +46,6 @@ class EntraIdOAuth2Login implements LoginInterface
 
     public function getAccessToken(Request $request, array $options = []): array
     {
-        dump($request);
-
         if (!$request->get('code') || !$this->checkState($request->get('state'))) {
             throw new BadRequestHttpException('No "code" and "state" parameter was found!');
         }
@@ -67,8 +65,6 @@ class EntraIdOAuth2Login implements LoginInterface
             ['body' => $query]
         );
 
-        dump($response);
-
         return $response->toArray();
     }
 
@@ -76,14 +72,10 @@ class EntraIdOAuth2Login implements LoginInterface
     {
         $accessToken ??= $request instanceof Request ? $this->getAccessToken($request) : $request;
 
-        dump($accessToken);
-
         $response = $this->httpClient->request('GET',
             'https://graph.microsoft.com/v1.0/me',
             $this->getAuthorizationHeaders($accessToken)
         );
-
-        dump($response->toArray());
 
         $data = $response->toArray();
 
